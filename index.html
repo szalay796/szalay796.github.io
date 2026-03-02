@@ -3,116 +3,327 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Slay – Artist Portfolio</title>
+<title>SLAY – Contemporary Abstract Artist</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.hero {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom, #000, #1a1a1a);
-  text-align: center;
+body{
+    font-family:'Inter', sans-serif;
+    background:#f4f2ee;
+    color:#111;
+    overflow-x:hidden;
 }
 
-.hero h1 {
-  font-size: 4rem;
-  margin: 0;
-  letter-spacing: 5px;
+/* HERO */
+
+.hero{
+    height:100vh;
+    position:relative;
+    overflow:hidden;
 }
 
-.hero p {
-  font-size: 1.2rem;
-  opacity: 0.8;
+.hero-slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition:opacity 1.8s ease-in-out;
 }
 
-.section {
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: auto;
+.hero-slide.active{
+    opacity:1;
 }
 
-.section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  border-bottom: 2px solid white;
-  display: inline-block;
+.hero-overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.5));
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.hero-content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+    color:white;
 }
 
-.gallery img {
-  width: 100%;
-  transition: 0.3s;
-  cursor: pointer;
+.hero-content h1{
+    font-family:'Playfair Display', serif;
+    font-size:120px;
+    letter-spacing:8px;
+    font-weight:800;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
+.hero-content p{
+    font-size:18px;
+    letter-spacing:3px;
+    margin-top:10px;
 }
 
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  background: #000;
+/* SECTION */
+
+.section{
+    padding:120px 10%;
 }
 
-a {
-  color: #ff4d6d;
-  text-decoration: none;
+.section h2{
+    font-family:'Playfair Display', serif;
+    font-size:42px;
+    margin-bottom:60px;
 }
 
-a:hover {
-  text-decoration: underline;
+/* GRID */
+
+.gallery{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:40px;
+}
+
+.art{
+    cursor:pointer;
+    transition:transform .4s ease;
+}
+
+.art:hover{
+    transform:scale(1.02);
+}
+
+.art img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+.art-info{
+    margin-top:15px;
+}
+
+.art-info h3{
+    font-weight:500;
+    font-size:20px;
+}
+
+.art-info span{
+    font-size:14px;
+    opacity:.7;
+}
+
+.art-info p{
+    font-size:14px;
+    margin-top:8px;
+    opacity:.8;
+}
+
+/* ASYMMETRY */
+
+.art:nth-child(1){
+    grid-row:span 2;
+}
+
+/* ABOUT */
+
+.about{
+    background:#111;
+    color:white;
+}
+
+.about p{
+    max-width:700px;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.4s ease;
+}
+
+.lightbox.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+}
+
+.close{
+    position:absolute;
+    top:40px;
+    right:50px;
+    font-size:30px;
+    color:white;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
+}
+
+.fade-up.visible{
+    opacity:1;
+    transform:translateY(0);
 }
 </style>
 </head>
-
 <body>
 
-<div class="hero">
-  <h1>SLAY</h1>
-  <p>Visual Artist</p>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-slide active" style="background-image:url('')"></div>
+    <div class="hero-slide" style="background-image:url('hero2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('hero3.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>SLAY</h1>
+        <p>Contemporary Abstract Artist</p>
+    </div>
+</section>
+
+<!-- WORKS -->
+<section class="section">
+    <h2 class="fade-up">Featured Works</h2>
+    <div class="gallery">
+
+        <div class="art fade-up">
+            <img src="art1.jpg" alt="">
+            <div class="art-info">
+                <h3>Untitled Chaos</h3>
+                <span>2024</span>
+                <p>A tension between movement and restraint.</p>
+            </div>
+        </div>
+
+        <div class="art fade-up">
+            <img src="art2.jpg" alt="">
+            <div class="art-info">
+                <h3>Blue Collapse</h3>
+                <span>2023</span>
+                <p>Layers dissolving into controlled disorder.</p>
+            </div>
+        </div>
+
+        <div class="art fade-up">
+            <img src="art3.jpg" alt="">
+            <div class="art-info">
+                <h3>Crimson Silence</h3>
+                <span>2024</span>
+                <p>Stillness emerging from visual aggression.</p>
+            </div>
+        </div>
+
+        <div class="art fade-up">
+            <img src="art4.jpg" alt="">
+            <div class="art-info">
+                <h3>Fragmented Mind</h3>
+                <span>2022</span>
+                <p>Disruption of symmetry and form.</p>
+            </div>
+        </div>
+
+        <div class="art fade-up">
+            <img src="art5.jpg" alt="">
+            <div class="art-info">
+                <h3>Echo Structure</h3>
+                <span>2023</span>
+                <p>Geometry fighting with instinct.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about">
+    <h2>About</h2>
+    <p>
+        My work explores the tension between chaos and structure. 
+        Through bold color relationships and layered textures, I construct visual environments 
+        that challenge symmetry and embrace controlled disruption. 
+        Each piece exists as a negotiation between instinct and intention.
+    </p>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img" src="">
 </div>
 
-<div class="section">
-  <h2>About</h2>
-  <p>
-    Slay is a visual artist exploring emotion, color and atmosphere.
-    This space presents selected works and artistic expressions.
-  </p>
-</div>
+<script>
 
-<div class="section">
-  <h2>Works</h2>
-  <div class="gallery">
-    <img src="images/festmeny1.jpg" alt="Artwork 1">
-    <img src="images/festmeny2.jpg" alt="Artwork 2">
-    <img src="images/festmeny3.jpg" alt="Artwork 3">
-  </div>
-</div>
+/* SLIDESHOW */
+let slides = document.querySelectorAll(".hero-slide");
+let current = 0;
 
-<footer>
-  <p>
-    Instagram:
-    <a href="https://instagram.com/szalay_szili" target="_blank">
-      @szalay_szili
-    </a>
-  </p>
-  <p>© 2026 Slay</p>
-</footer>
+setInterval(() => {
+    slides[current].classList.remove("active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("active");
+}, 5000);
+
+
+/* LIGHTBOX */
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+document.querySelectorAll(".art img").forEach(img=>{
+    img.addEventListener("click", ()=>{
+        lightbox.classList.add("active");
+        lightboxImg.src = img.src;
+    });
+});
+
+function closeLightbox(){
+    lightbox.classList.remove("active");
+}
+
+
+/* SCROLL ANIMATION */
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+        }
+    });
+});
+
+document.querySelectorAll(".fade-up").forEach(el=>{
+    observer.observe(el);
+});
+
+</script>
 
 </body>
 </html>
